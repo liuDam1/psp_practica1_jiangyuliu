@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <!-- 移除了这里的source和target配置，统一在插件中配置 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
@@ -54,48 +53,29 @@
 
     <build>
         <plugins>
-            <!-- 编译插件配置 - 使用推荐的release参数 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <!-- 使用release替代source和target，提供更好的版本兼容性 -->
                     <release>17</release>
                     <compilerArgs>
-                        <!-- 为Lombok添加编译参数 -->
                         <arg>-parameters</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
 
-            <!-- JavaFX运行插件 -->
+            <!-- Plugin para el araque de JavaFX -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>es.etg.psp.Main</mainClass>
-                    <!-- 确保JavaFX模块正确加载 -->
                     <modulePaths>
                         <modulePath>${maven.dependency.org.openjfx.javafx-controls.jar.parent-file.path}/../</modulePath>
                     </modulePaths>
                 </configuration>
-            </plugin>
-
-            <!-- Lombok插件，确保注解处理器生效 -->
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.18.20.0</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
